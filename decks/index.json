@@ -1,0 +1,5 @@
+[
+  { "id": "en-daily", "name": "انگلیسی — روزمره", "lang": "en", "desc": "فعل، صفت و اسم پرکاربرد", "file": "en-daily.csv", "count": 12 },
+  { "id": "en-travel", "name": "انگلیسی — سفر", "lang": "en", "desc": "فرودگاه، هتل و حمل‌ونقل", "file": "en-travel.csv", "count": 12 },
+  { "id": "ar-family", "name": "عربی — خانواده و خانه", "lang": "ar", "desc": "واژه‌های پایه", "file": "ar-family.csv", "count": 12 }
+]
