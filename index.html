@@ -76,6 +76,20 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
 .item{display:flex;gap:8px;align-items:center;background:var(--bg);border-radius:14px;padding:8px 12px;margin-bottom:8px}
 .item div{flex:1;line-height:1.5}.item span{font-size:12px;color:var(--mut)}
 .nav button{padding:6px 8px}
+.xd{margin:0 0 12px}.xd:empty{display:none}
+.xd>div:first-child{margin-top:0}
+.xe{background:var(--card);border-radius:18px;padding:12px 14px;box-shadow:var(--sh);font-weight:600}
+.xn{color:var(--mut);font-size:13px;margin:6px 4px 0}
+#sr .item{cursor:pointer}
+#dv{position:fixed;inset:0;z-index:90;overflow:auto;background:linear-gradient(180deg,var(--sky),var(--bg));padding:calc(14px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.dvTop{display:flex;justify-content:space-between;align-items:center;max-width:600px;margin:0 auto}
+#dv>.grp,#dvRun{max-width:600px;margin-inline:auto}
+.dvW{font-size:clamp(40px,12vw,72px);font-weight:800;text-align:center;margin:10vh 0 12px;line-height:1.3}
+.dvMn{font-size:clamp(28px,8vw,48px);color:var(--pri);text-align:center;min-height:1.5em;font-weight:700}
+.dvXd{text-align:center;margin-top:16px;font-size:20px}
+.dvCtl{justify-content:center;gap:24px;margin-top:8vh}
+.dvCtl .ib{width:64px;height:64px;font-size:26px}
+.dvCtl .big{width:88px;height:88px;font-size:34px;background:var(--pri)}
 </style>
 </head>
 <body>
@@ -88,10 +102,16 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
 
   <main>
   <section id="v-flash">
-    <div class="cnt" id="fcC"></div>
-    <div class="flip" id="fc"><div class="in"><div class="face front"></div><div class="face back"></div></div><button class="spk" data-s="fc" aria-label="تلفظ">🔊</button></div>
-    <p class="hint">برای دیدن معنی روی کارت بزنید</p>
-    <div class="two"><button id="prev">قبلی</button><button id="next" class="pri">بعدی</button></div>
+    <input id="sq" type="search" placeholder="🔍 جستجوی لغت، معنی یا مثال در همه دسته‌ها…" style="margin-bottom:12px">
+    <div id="sr"></div>
+    <div id="fArea">
+      <div class="cnt" id="fcC"></div>
+      <div class="flip" id="fc"><div class="in"><div class="face front"></div><div class="face back"></div></div><button class="spk" data-s="fc" aria-label="تلفظ">🔊</button></div>
+      <div class="xd" id="fx"></div>
+      <p class="hint">برای دیدن معنی روی کارت بزنید</p>
+      <div class="two"><button id="prev">قبلی</button><button id="next" class="pri">بعدی</button></div>
+      <div class="row" style="justify-content:center"><input id="goN" type="number" min="1" placeholder="شماره" style="width:92px;text-align:center"><button id="goB">برو</button><button class="pri" id="drvB">🚗 حالت رانندگی</button></div>
+    </div>
   </section>
 
   <section id="v-leit" hidden>
@@ -100,12 +120,14 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
     <div class="bar"><i id="pg"></i></div>
     <div class="cnt" id="lC"></div>
     <div class="flip" id="lc"><div class="in"><div class="face front"></div><div class="face back"></div></div><button class="spk" data-s="lc" aria-label="تلفظ">🔊</button></div>
+    <div class="xd" id="lx"></div>
     <div class="two" id="ans"><button class="bad" id="no">❌ بلد نبودم</button><button class="good" id="yes">✅ بلد بودم</button></div>
     <div id="qz" hidden>
       <div style="position:relative"><div class="qc" id="qc"></div><button class="spk" data-s="q" aria-label="تلفظ">🔊</button></div>
       <div class="opts" id="opts"></div>
       <div id="tpBox" hidden><input id="tpIn" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="لغت را بنویسید"><div class="row"><button class="pri" id="tpOk">بررسی</button><button class="pri" id="tpNx" hidden>بعدی</button></div></div>
       <div class="fb" id="fb"></div>
+      <div class="xd" id="qx"></div>
     </div>
     <div class="empty" id="lE" hidden></div>
   </section>
@@ -116,12 +138,12 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
     <div class="grp"><h3>📁 دسته‌ها</h3><div id="dl"></div>
       <input id="dN" placeholder="نام دسته جدید" style="margin-top:8px"><div class="row"><select id="dLg"></select><button class="pri" id="dAdd">ساخت دسته</button></div></div>
     <div class="grp"><h3>🛒 فروشگاه دسته‌ها</h3><p class="info" id="sSt"></p><div id="sl"></div><div class="row"><button id="sRe">بارگذاری دوباره</button></div></div>
-    <div class="grp"><h3>📥 ورود لغات (CSV)</h3><p class="info">هر خط: <code>word,meaning,tag</code> (ستون سوم برچسب است و اختیاری). لغات به دسته انتخاب‌شده اضافه می‌شوند.</p>
+    <div class="grp"><h3>📥 ورود لغات (CSV)</h3><p class="info">هر خط: <code>word,meaning,tag,example,note</code> (سه ستون آخر اختیاری: برچسب، جمله مثال، توضیح). لغات به دسته انتخاب‌شده اضافه می‌شوند.</p>
       <input type="file" id="impF" accept=".csv,.txt,text/csv,text/plain">
       <textarea id="impT" placeholder="abandon,رها کردن&#10;keen,مشتاق" style="margin-top:8px"></textarea>
       <div class="row"><button class="pri" id="impAdd">افزودن</button><button id="impRep">جایگزینی بانک</button></div></div>
     <div class="grp"><h3>➕ افزودن دستی</h3>
-      <input id="mW" placeholder="لغت"><input id="mM" placeholder="معنی" style="margin-top:8px"><input id="mT" placeholder="برچسب (اختیاری)" style="margin-top:8px">
+      <input id="mW" placeholder="لغت"><input id="mM" placeholder="معنی" style="margin-top:8px"><input id="mT" placeholder="برچسب (اختیاری)" style="margin-top:8px"><input id="mE" placeholder="جمله مثال (اختیاری)" style="margin-top:8px"><input id="mN" placeholder="توضیح (اختیاری)" style="margin-top:8px">
       <div class="row"><button class="pri" id="mAdd">افزودن</button></div></div>
     <div class="grp"><h3>📤 خروجی CSV</h3><div class="row" style="margin:0"><button class="pri" id="csvDl">دانلود</button><button id="csvCp">کپی</button></div></div>
     <div class="grp"><h3>📊 وضعیت</h3><div class="stats" id="bSt"></div></div>
@@ -159,6 +181,25 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
   <ol><li>منوی ⋮ را باز کنید</li><li>«Install app» یا «Add to Home screen» را بزنید</li></ol>
   <button class="pri" id="dIc">متوجه شدم</button>
 </dialog>
+<div id="dv" hidden>
+  <div class="dvTop"><button class="ib" id="dvX" aria-label="بستن">✕</button><b id="dvC"></b><span style="width:42px"></span></div>
+  <div id="dvSet" class="grp" style="margin-top:14px">
+    <h3>🚗 حالت رانندگی</h3>
+    <p class="info">⚠️ ایمنی: هنگام رانندگی به صفحه نگاه نکنید. فقط صدا را گوش دهید و گوشی را روی پایه بگذارید. صفحه روشن می‌ماند و اگر قفل شود ممکن است صدا قطع شود.</p>
+    <label>شروع از کارت شماره</label><input type="number" id="dvN" min="1">
+    <label>مکث بعد از خواندن لغت (ثانیه)، فرصت یادآوری</label><input type="number" id="dvG" min="0" max="15">
+    <label>مکث بین کارت‌ها (ثانیه)</label><input type="number" id="dvD" min="0" max="15">
+    <label><input type="checkbox" id="dvM" style="width:auto"> خواندن معنی فارسی (نیاز به صدای فارسی روی دستگاه)</label>
+    <label><input type="checkbox" id="dvE" style="width:auto"> خواندن جمله مثال</label>
+    <label><input type="checkbox" id="dvL" style="width:auto"> تکرار از اول در پایان</label>
+    <label>سرعت صدا</label><select id="dvR" style="width:100%"><option value="0.7">آهسته</option><option value="0.9">معمولی</option><option value="1.1">سریع</option></select>
+    <div class="row"><button class="pri" id="dvGo">شروع</button></div>
+  </div>
+  <div id="dvRun" hidden>
+    <div class="dvW" id="dvW"></div><div class="dvMn" id="dvMn"></div><div class="dvXd" id="dvX2"></div>
+    <div class="row dvCtl"><button class="ib" id="dvP" aria-label="قبلی">⏮</button><button class="ib big" id="dvPl" aria-label="مکث">⏸</button><button class="ib" id="dvNx" aria-label="بعدی">⏭</button></div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -193,9 +234,9 @@ function readFile(inp,target){const f=inp.files[0];if(!f)return;const r=new File
 
 /* CSV: word,meaning,tag */
 function csvLine(l,s){const o=[];let c="",qt=false;for(let i=0;i<l.length;i++){const h=l[i];if(qt){if(h=='"'){if(l[i+1]=='"'){c+='"';i++}else qt=false}else c+=h}else if(h=='"')qt=true;else if(h===s){o.push(c);c=""}else c+=h}o.push(c);return o.map(x=>x.trim())}
-const parseCSV=t=>t.replace(/^\ufeff/,"").split(/\r?\n/).map(l=>l.trim()).filter(Boolean).map(l=>{const p=csvLine(l,l.includes("\t")&&!l.includes(",")?"\t":",");return p.length<2?null:{word:p[0],meaning:p[1],tag:p[2]||""}}).filter(x=>x&&x.word&&x.meaning&&!(x.word.toLowerCase()==="word"&&x.meaning.toLowerCase()==="meaning"));
+const parseCSV=t=>t.replace(/^\ufeff/,"").split(/\r?\n/).map(l=>l.trim()).filter(Boolean).map(l=>{const p=csvLine(l,l.includes("\t")&&!l.includes(",")?"\t":",");return p.length<2?null:{word:p[0],meaning:p[1],tag:p[2]||"",example:p[3]||"",note:p[4]||""}}).filter(x=>x&&x.word&&x.meaning&&!(x.word.toLowerCase()==="word"&&x.meaning.toLowerCase()==="meaning"));
 const qc=x=>/[",\n]/.test(x)?'"'+x.replace(/"/g,'""')+'"':x;
-const toCSV=a=>"word,meaning,tag\n"+a.map(w=>[w.word,w.meaning,w.tag||""].map(qc).join(",")).join("\n");
+const toCSV=a=>"word,meaning,tag,example,note\n"+a.map(w=>[w.word,w.meaning,w.tag||"",w.example||"",w.note||""].map(qc).join(",")).join("\n");
 
 /* منطق */
 const tc=()=>{const t=todayS();if(!quota[deck]||quota[deck].date!==t){quota[deck]={date:t,count:0};sv(K.quota,quota)}return quota[deck].count};
@@ -216,9 +257,9 @@ function rDk(){$("#dk").innerHTML=decks.map(d=>`<button class="pill ${d.id===dec
   const tg=[...new Set(W().map(w=>w.tag).filter(Boolean))];if(tagSel&&!tg.includes(tagSel))tagSel="";
   $("#tg").innerHTML=tg.length?[""].concat(tg).map(t=>`<button class="pill ${t===tagSel?"on":""}" data-g="${esc(t)}">${t?"#"+esc(t):"همه برچسب‌ها"}</button>`).join(""):"";
   $("#dk").hidden=view==="set"||view==="st";$("#tg").hidden=!(view==="flash"||view==="leit")}
-function rF(){const w=WF();$("#fc").hidden=!w.length;if(!w.length){$("#fcC").textContent="کارتی نیست";return}
-  if(fi>=w.length)fi=0;setCard($("#fc"),w[fi]);$("#fcC").textContent=fa(fi+1)+" / "+fa(w.length);$("#prev").disabled=fi===0;$("#next").disabled=fi===w.length-1}
-function qz(w){lock=false;$("#fb").textContent="";$("#fb").className="fb";const e=$("#qc");
+function rF(){const w=WF();$("#fc").hidden=!w.length;if(!w.length){$("#fcC").textContent="کارتی نیست";$("#fx").innerHTML="";return}
+  if(fi>=w.length)fi=0;setCard($("#fc"),w[fi]);$("#fx").innerHTML=xdet(w[fi]);$("#fcC").textContent=fa(fi+1)+" / "+fa(w.length);$("#prev").disabled=fi===0;$("#next").disabled=fi===w.length-1}
+function qz(w){lock=false;$("#fb").textContent="";$("#qx").innerHTML="";$("#fb").className="fb";const e=$("#qc");
   if(mode==="mc"){e.textContent=w.word;e.dir=LG()[2];$("#tpBox").hidden=true;$("#opts").hidden=false;
     const mix=a=>a.sort(()=>Math.random()-.5),pool=mix([...new Set(W().filter(x=>x.word!==w.word).map(x=>x.meaning).filter(m=>m!==w.meaning))]).slice(0,3);
     $("#opts").innerHTML=mix([...pool,w.meaning]).map(m=>`<button data-o="${esc(m)}">${esc(m)}</button>`).join("")}
@@ -232,14 +273,14 @@ function rL(){const c=[0,0,0,0,0,0,0];W().forEach(x=>{const b=P(x.word).box;if(b
   $("#lE").hidden=has;$("#lC").textContent=has?fa(li+1)+" / "+fa(q.length):"";
   $("#lc").hidden=!has||!card;$("#ans").hidden=!has||!card;$("#qz").hidden=!has||card;
   if(!has){cur=null;$("#lE").textContent=lf==="due"?"کارتی برای مرور امروز نیست 🎉":"کارتی در این جعبه نیست.";return}
-  cur=q[li];if(card)setCard($("#lc"),cur);else qz(cur)}
+  cur=q[li];$("#lx").innerHTML="";if(card)setCard($("#lc"),cur);else qz(cur)}
 function answer(ok){if(!q.length||!cur)return;const w=cur.word,p=P(w);p.box=ok?Math.min(p.box+1,6):1;if(!ok)p.miss=(p.miss||0)+1;
   p.lastReviewed=Date.now();p.nextReview=p.box>=6?null:dayAt(IV[p.box]);sv(K.progress,progress);bump(ok);
   rL();if(q.length>1&&cur&&cur.word===w){li=(li+1)%q.length;rL()}
   $("#subt").textContent=fa(dueList().length)+" کارت موعد رسیده"}
 function chk(){if(lock||!cur)return;lock=true;const a=nz($("#tpIn").value),b=nz(cur.word),ok=a===b||(a.length>0&&b.length>=5&&lev(a,b)<=1);pend=ok;
   $("#fb").className="fb "+(ok?"good":"bad");$("#fb").textContent=ok?(a===b?"درست ✅":"تقریباً درست ✅ "+cur.word):"پاسخ درست: "+cur.word;
-  $("#tpIn").disabled=true;$("#tpOk").hidden=true;$("#tpNx").hidden=false;$("#tpNx").focus()}
+  $("#qx").innerHTML=xdet(cur);$("#tpIn").disabled=true;$("#tpOk").hidden=true;$("#tpNx").hidden=false;$("#tpNx").focus()}
 function rSt(){let r30=0,c30=0;for(let i=0;i<30;i++){const x=stats[dS(agoD(i))];if(x){r30+=x.r;c30+=x.c}}
   const td=stats[todayS()]||{r:0},mast=decks.reduce((a,d)=>a+(bank[d.id]||[]).filter(w=>PR(d.id,w.word).box>=6).length,0);
   const hard=decks.flatMap(d=>(bank[d.id]||[]).map(w=>({w,d,m:PR(d.id,w.word).miss||0}))).filter(x=>x.m>=2).sort((a,b)=>b.m-a.m).slice(0,8);
@@ -268,14 +309,56 @@ async function addStore(id){const it=(sList||[]).find(x=>x.id===id);if(!it)retur
     const ex=new Set((bank[id]||[]).map(w=>w.word));let n=0;ws.forEach(w=>{if(!ex.has(w.word)){bank[id].push(w);n++}});
     saveAll();deck=id;tagSel="";intro();render();toast(fa(n)+" لغت اضافه شد")}catch(e){toast("دریافت دسته ناموفق بود")}}
 
+/* جزئیات، جستجو و حالت رانندگی */
+const xdet=w=>(w.example?`<div class="xe" dir="${LG()[2]}">${esc(w.example)}</div>`:"")+(w.note?`<div class="xn">${esc(w.note)}</div>`:"");
+function flipL(){const c=$("#lc");c.classList.toggle("f");$("#lx").innerHTML=c.classList.contains("f")&&cur?xdet(cur):""}
+let sres=[];
+$("#sq").oninput=()=>{const t=nz($("#sq").value.trim()),r=$("#sr");$("#fArea").hidden=!!t;sres=[];
+  if(!t){r.innerHTML="";return}
+  for(const d of decks){for(const w of bank[d.id]||[]){if(nz([w.word,w.meaning,w.tag,w.example,w.note].join(" ")).includes(t))sres.push([d,w]);if(sres.length>=40)break}if(sres.length>=40)break}
+  r.innerHTML=sres.length?sres.map(([d,w],k)=>`<div class="item" data-k="${k}"><div><b dir="auto">${esc(w.word)}</b> — ${esc(w.meaning)}<br><span>${esc(d.name)}${w.tag?" · #"+esc(w.tag):""}</span></div></div>`).join(""):'<div class="empty">چیزی پیدا نشد.</div>'};
+$("#sr").onclick=e=>{const k=e.target.closest(".item")?.dataset.k;if(k==null)return;const[d,w]=sres[k];
+  if(d.id!==deck)setDeck(d.id);tagSel="";fi=Math.max(0,WF().indexOf(w));$("#sq").value="";$("#sr").innerHTML="";$("#fArea").hidden=false;render()};
+$("#goB").onclick=()=>{const n=parseInt($("#goN").value,10),w=WF();if(!(n>=1&&n<=w.length))return toast("شماره بین ۱ تا "+fa(w.length));fi=n-1;rF()};
+
+let dvs={gap:3,delay:2,m:true,e:true,l:false,r:.9,...ld("leitner_m_drv",{})},dv={i:0,run:false,gen:0,wl:null};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const stopTTS=()=>{try{speechSynthesis.cancel()}catch(e){}};
+function say(t,lang){return new Promise(res=>{try{const u=new SpeechSynthesisUtterance(t);u.lang=lang;u.rate=dvs.r;u.onend=u.onerror=()=>res();speechSynthesis.cancel();speechSynthesis.speak(u);setTimeout(res,15000)}catch(e){res()}})}
+async function wake(){try{if(navigator.wakeLock&&!dv.wl){dv.wl=await navigator.wakeLock.request("screen");dv.wl.addEventListener("release",()=>{dv.wl=null})}}catch(e){}}
+function unwake(){try{dv.wl&&dv.wl.release()}catch(e){}dv.wl=null}
+function dvShow(c,rev){const e=$("#dvW");e.textContent=c.word;e.dir=LG()[2];$("#dvMn").textContent=rev?c.meaning:"· · ·";$("#dvX2").innerHTML=rev?xdet(c):"";$("#dvC").textContent=fa(dv.i+1)+" / "+fa(WF().length)}
+async function drvPlay(){const g=++dv.gen;
+  while(dv.run&&g===dv.gen){const w=WF();
+    if(dv.i>=w.length){if(dvs.l)dv.i=0;else{dv.i=Math.max(w.length-1,0);dv.run=false;unwake();$("#dvPl").textContent="▶️";toast("به آخر فهرست رسیدید");return}}
+    const c=w[dv.i];dvShow(c,false);
+    await say(c.word,LG()[1]);if(g!==dv.gen)return;
+    await sleep(dvs.gap*1000);if(g!==dv.gen)return;
+    dvShow(c,true);
+    if(dvs.m){await say(c.meaning,"fa-IR");if(g!==dv.gen)return}
+    if(dvs.e&&c.example){await say(c.example,LG()[1]);if(g!==dv.gen)return}
+    await sleep(dvs.delay*1000);if(g!==dv.gen)return;
+    dv.i++}}
+$("#drvB").onclick=()=>{$("#dvN").value=fi+1;$("#dvG").value=dvs.gap;$("#dvD").value=dvs.delay;$("#dvM").checked=dvs.m;$("#dvE").checked=dvs.e;$("#dvL").checked=dvs.l;$("#dvR").value=String(dvs.r);
+  $("#dvC").textContent=D().name;$("#dvSet").hidden=false;$("#dvRun").hidden=true;$("#dv").hidden=false};
+$("#dvGo").onclick=()=>{const w=WF();if(!w.length)return toast("کارتی نیست");let n=parseInt($("#dvN").value,10);if(!(n>=1&&n<=w.length))n=1;
+  dvs={gap:Math.max(0,+$("#dvG").value||0),delay:Math.max(0,+$("#dvD").value||0),m:$("#dvM").checked,e:$("#dvE").checked,l:$("#dvL").checked,r:+$("#dvR").value||.9};sv("leitner_m_drv",dvs);
+  dv.i=n-1;dv.run=true;$("#dvSet").hidden=true;$("#dvRun").hidden=false;$("#dvPl").textContent="⏸";wake();drvPlay()};
+function dvMove(d){const w=WF();dv.gen++;stopTTS();dv.i=Math.min(Math.max(dv.i+d,0),w.length-1);dvShow(w[dv.i],false);if(dv.run)drvPlay()}
+$("#dvP").onclick=()=>dvMove(-1);$("#dvNx").onclick=()=>dvMove(1);
+$("#dvPl").onclick=()=>{dv.run=!dv.run;$("#dvPl").textContent=dv.run?"⏸":"▶️";if(dv.run){wake();drvPlay()}else{dv.gen++;stopTTS()}};
+$("#dvX").onclick=()=>{dv.run=false;dv.gen++;stopTTS();unwake();$("#dv").hidden=true;fi=Math.min(dv.i,Math.max(WF().length-1,0));render()};
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&dv.run)wake()});
+
 /* رویدادها */
-["#fc","#lc"].forEach(s=>$(s).addEventListener("click",e=>{if(e.target.closest(".spk"))return;$(s).classList.toggle("f")}));
+$("#fc").addEventListener("click",e=>{if(!e.target.closest(".spk"))$("#fc").classList.toggle("f")});
+$("#lc").addEventListener("click",e=>{if(!e.target.closest(".spk"))flipL()});
 $$(".spk").forEach(b=>b.onclick=e=>{e.stopPropagation();speak(b.dataset.s==="q"?(cur&&cur.word)||"":$("#"+b.dataset.s).querySelector(".front").textContent)});
 $("#prev").onclick=()=>{if(fi>0){fi--;rF()}};$("#next").onclick=()=>{if(fi<WF().length-1){fi++;rF()}};
 $("#yes").onclick=()=>answer(true);$("#no").onclick=()=>answer(false);
 $("#fl").onclick=e=>{const f=e.target.dataset.f;if(f==null)return;lf=f;li=0;rL()};
 $("#md").onclick=e=>{const m=e.target.dataset.m;if(!m)return;mode=m;li=0;rL()};
-$("#opts").onclick=e=>{const b=e.target.closest("button");if(!b||lock||!cur)return;lock=true;const ok=b.dataset.o===cur.meaning;
+$("#opts").onclick=e=>{const b=e.target.closest("button");if(!b||lock||!cur)return;lock=true;const ok=b.dataset.o===cur.meaning;$("#qx").innerHTML=xdet(cur);
   $$("#opts button").forEach(x=>{if(x.dataset.o===cur.meaning)x.classList.add("good");else if(x===b)x.classList.add("bad")});setTimeout(()=>answer(ok),ok?700:1500)};
 $("#tpOk").onclick=chk;$("#tpNx").onclick=()=>answer(pend);$("#tpIn").onkeydown=e=>{if(e.key==="Enter")chk()};
 $("#dk").onclick=e=>{const d=e.target.dataset.d;if(d==null)return;if(d==="+"){show("bank");setTimeout(()=>$("#dN").focus(),60)}else setDeck(d)};
@@ -283,7 +366,7 @@ $("#tg").onclick=e=>{const g=e.target.dataset.g;if(g==null)return;tagSel=g;fi=li
 $("#nav").onclick=e=>{const v=e.target.closest("button")?.dataset.v;if(v)show(v)};
 $("#theme").onclick=()=>{const r=document.documentElement;r.dataset.theme=getComputedStyle(r).colorScheme==="dark"?"light":"dark"};
 addEventListener("keydown",e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||mode!=="card"&&view==="leit")return;
-  if(e.code==="Space"&&(view==="flash"||view==="leit")){e.preventDefault();$(view==="flash"?"#fc":"#lc").classList.toggle("f")}
+  if(e.code==="Space"&&(view==="flash"||view==="leit")){e.preventDefault();view==="flash"?$("#fc").classList.toggle("f"):flipL()}
   else if(view==="leit"&&e.key==="ArrowRight")answer(true);else if(view==="leit"&&e.key==="ArrowLeft")answer(false)});
 
 $("#dLg").innerHTML=Object.entries(LANGS).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join("");
@@ -300,7 +383,7 @@ $("#impAdd").onclick=()=>{const v=getImp();if(!v.length)return;bank[deck]=bank[d
   v.forEach(w=>{if(!ex.has(w.word)){bank[deck].push(w);ex.add(w.word);n++}});saveAll();$("#impT").value="";toast(fa(n)+" لغت اضافه شد");intro();render()};
 $("#impRep").onclick=()=>{const v=getImp();if(!v.length)return;if(!sure("rep","جایگزینی دسته"))return;bank[deck]=v;saveAll();$("#impT").value="";fi=li=0;intro();render();toast("جایگزین شد")};
 $("#mAdd").onclick=()=>{const w=$("#mW").value.trim(),m=$("#mM").value.trim();if(!w||!m)return toast("لغت و معنی را پر کنید");
-  if(W().some(x=>x.word===w))return toast("این لغت قبلاً هست");bank[deck]=bank[deck]||[];bank[deck].push({word:w,meaning:m,tag:$("#mT").value.trim()});saveAll();$("#mW").value=$("#mM").value=$("#mT").value="";toast("اضافه شد");intro();render()};
+  if(W().some(x=>x.word===w))return toast("این لغت قبلاً هست");bank[deck]=bank[deck]||[];bank[deck].push({word:w,meaning:m,tag:$("#mT").value.trim(),example:$("#mE").value.trim(),note:$("#mN").value.trim()});saveAll();$("#mW").value=$("#mM").value=$("#mT").value=$("#mE").value=$("#mN").value="";toast("اضافه شد");intro();render()};
 $("#csvDl").onclick=()=>dl("words-"+deck+".csv",toCSV(W()),"text/csv;charset=utf-8");$("#csvCp").onclick=()=>copy(toCSV(W()));
 $("#qSv").onclick=()=>{const v=parseInt($("#qIn").value,10);if(isNaN(v)||v<0||v>100)return toast("عدد بین ۰ تا ۱۰۰");limit=v;sv(K.limit,limit);intro();render();toast("ذخیره شد")};
 
