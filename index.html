@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="لایتنر">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <title>فلش‌کارت و لایتنر</title>
 <style>
@@ -97,6 +98,15 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
 .sw{display:flex;gap:12px;flex-wrap:wrap}
 .sw button{width:42px;height:42px;padding:0;border-radius:50%;background:var(--c);box-shadow:none;border:3px solid var(--card);outline:2px solid transparent}
 .sw button.on{outline-color:var(--tx)}
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea{-webkit-user-select:text;user-select:text}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.dcard{background:var(--card);border-radius:22px;box-shadow:var(--sh);overflow:hidden}
+.dcov{height:84px;display:grid;place-items:center;font-size:42px;background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 55%,#fff))}
+.dbody{padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.dm{font-size:12px;color:var(--mut)}.dbd{display:flex;gap:6px;flex-wrap:wrap}
+.bdg{font-size:12px;background:var(--bg);border-radius:12px;padding:2px 10px}
+.dcard .desc{display:block;-webkit-line-clamp:unset}
 </style>
 </head>
 <body>
@@ -107,6 +117,7 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
   <div class="pills" id="dk"></div>
   <div class="pills" id="tg"></div>
 
+  <div class="grp" id="lk" hidden><b>🔒 این دسته قفل است</b><p class="info" id="lkT" style="margin:6px 0"></p><button class="pri" id="lkB">مشاهده اشتراک‌ها</button></div>
   <main>
   <section id="v-flash">
     <input id="sq" type="search" placeholder="🔍 جستجوی لغت، معنی یا مثال در همه دسته‌ها…" style="margin-bottom:12px">
@@ -126,6 +137,7 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
     <div class="pills" id="fl"></div>
     <div class="bar"><i id="pg"></i></div>
     <div class="cnt" id="lC"></div>
+    <div class="cnt" id="lm"></div>
     <div class="flip" id="lc"><div class="in"><div class="face front"></div><div class="face back"></div></div><button class="spk" data-s="lc" aria-label="تلفظ">🔊</button></div>
     <div class="xd" id="lx"></div>
     <div class="two" id="ans"><button class="bad" id="no">❌ بلد نبودم</button><button class="good" id="yes">✅ بلد بودم</button></div>
@@ -141,10 +153,18 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
 
   <section id="v-st" hidden><div id="st"></div></section>
 
+  <section id="v-store" hidden>
+    <div class="grp" id="plBox"></div>
+    <input id="stq" type="search" placeholder="🔍 جستجوی دسته (نام، موضوع، برچسب)…" style="margin-bottom:10px">
+    <div class="pills" id="stL"></div><div class="pills" id="stV"></div><div class="pills" id="stA"></div>
+    <div class="row" style="margin:0 0 12px"><select id="stS"><option value="new">جدیدترین</option><option value="cnt">بیشترین لغت</option><option value="az">الفبایی</option></select><span class="info" id="sSt" style="margin:0;flex:1"></span><button id="sRe" aria-label="بارگذاری دوباره">↻</button></div>
+    <div id="sl" class="sgrid"></div>
+  </section>
+
   <section id="v-bank" hidden>
     <div class="grp"><h3>📁 دسته‌ها</h3><div id="dl"></div>
       <input id="dN" placeholder="نام دسته جدید" style="margin-top:8px"><div class="row"><select id="dLg"></select><button class="pri" id="dAdd">ساخت دسته</button></div></div>
-    <div class="grp"><h3>🛒 فروشگاه دسته‌ها</h3><p class="info" id="sSt"></p><div id="sl"></div><div class="row"><button id="sRe">بارگذاری دوباره</button></div></div>
+    
     <div class="grp"><h3>📥 ورود لغات (CSV)</h3><p class="info">هر خط: <code>word,meaning,tag,example,note</code> (سه ستون آخر اختیاری: برچسب، جمله مثال، توضیح). لغات به دسته انتخاب‌شده اضافه می‌شوند.</p>
       <input type="file" id="impF" accept=".csv,.txt,text/csv,text/plain">
       <textarea id="impT" placeholder="abandon,رها کردن&#10;keen,مشتاق" style="margin-top:8px"></textarea>
@@ -152,7 +172,7 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
     <div class="grp"><h3>➕ افزودن دستی</h3>
       <input id="mW" placeholder="لغت"><input id="mM" placeholder="معنی" style="margin-top:8px"><input id="mT" placeholder="برچسب (اختیاری)" style="margin-top:8px"><input id="mE" placeholder="جمله مثال (اختیاری)" style="margin-top:8px"><input id="mN" placeholder="توضیح (اختیاری)" style="margin-top:8px">
       <div class="row"><button class="pri" id="mAdd">افزودن</button></div></div>
-    <div class="grp"><h3>📤 خروجی CSV</h3><div class="row" style="margin:0"><button class="pri" id="csvDl">دانلود</button><button id="csvCp">کپی</button></div></div>
+    
     <div class="grp"><h3>📊 وضعیت</h3><div class="stats" id="bSt"></div></div>
   </section>
 
@@ -164,10 +184,9 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
     <div class="grp"><h3>📅 فواصل مرور</h3><div class="stats">
       <div class="stat"><b>۱</b><span>ج۱: ۱ روز</span></div><div class="stat"><b>۲</b><span>ج۲: ۲ روز</span></div><div class="stat"><b>۴</b><span>ج۳: ۴ روز</span></div><div class="stat"><b>۸</b><span>ج۴: ۸ روز</span></div><div class="stat"><b>۱۶</b><span>ج۵: ۱۶ روز</span></div></div></div>
     <div class="grp"><h3>🛒 آدرس فروشگاه دسته‌ها</h3><p class="info">فایل index.json فروشگاه: مسیر نسبی یا آدرس کامل ریپوی دیگر.</p><input id="stIn" dir="ltr"><div class="row"><button class="pri" id="stSv">ذخیره</button></div></div>
-    <div class="grp"><h3>💾 پشتیبان و انتقال</h3><p class="info">شامل همه دسته‌ها، پیشرفت و آمار. برای انتقال به گوشی دیگر «کد انتقال» را بسازید، برای خودتان بفرستید و آنجا در کادر بچسبانید و «درون‌ریزی» بزنید.</p>
-      <input type="file" id="bkF" accept=".json,application/json">
+    <div class="grp"><h3>💾 پشتیبان و انتقال</h3><p class="info">شامل لغات و دسته‌های خودتان و پیشرفت همه دسته‌ها. محتوای دسته‌های فروشگاه و اشتراک در کد نیست و بعد از انتقال دوباره از فروشگاه افزوده می‌شود.</p>
       <textarea id="bkT" style="margin-top:8px"></textarea>
-      <div class="row"><button class="pri" id="bkDl">دانلود</button><button id="bkCp">کپی</button><button id="bkCode">کد انتقال</button><button id="bkIm">درون‌ریزی</button></div></div>
+      <div class="row"><button class="pri" id="bkCode">ساخت کد انتقال</button><button id="bkIm">درون‌ریزی</button></div></div>
     <div class="grp"><h3>📲 برنامه</h3><p class="info" id="pSt"></p>
       <div class="row" style="margin:0"><button class="pri" id="instBtn2">نصب روی گوشی</button><button class="dg" id="rst">ریست همه</button></div></div>
   </section>
@@ -178,10 +197,19 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
   <button data-v="flash" class="on">🗂️<span>فلش‌کارت</span></button>
   <button data-v="leit">📦<span>مرور</span></button>
   <button data-v="st">📈<span>آمار</span></button>
-  <button data-v="bank">📚<span>بانک</span></button>
+  <button data-v="store">🛒<span>فروشگاه</span></button>
+  <button data-v="bank">📚<span>دسته‌ها</span></button>
   <button data-v="set">⚙️<span>تنظیمات</span></button>
 </nav>
 
+<dialog id="dPv"></dialog>
+<dialog id="dPw">
+  <h3 style="margin:0">اشتراک</h3><p class="info" id="pwI" style="margin:4px 0 10px"></p>
+  <div class="pills" id="pwD"><button class="pill" data-m="1">۱ ماهه</button><button class="pill on" data-m="3">۳ ماهه</button><button class="pill" data-m="6">۶ ماهه</button><button class="pill" data-m="12">۱۲ ماهه</button></div>
+  <div class="item" id="pwS"></div><div class="item" id="pwP"></div>
+  <label>کد هدیه</label><div class="row" style="margin-top:0"><input id="gc" dir="ltr" placeholder="کد را وارد کنید" style="flex:1"><button class="pri" id="gcB">فعال‌سازی</button></div>
+  <p class="info" id="pwN"></p><button id="pwX">بستن</button>
+</dialog>
 <dialog id="dI">
   <h3 style="margin:0 0 6px">افزودن به صفحه اصلی گوشی</h3>
   <b>iPhone / iPad (Safari)</b>
@@ -213,7 +241,7 @@ select{background:var(--card);border:1px solid var(--bd);border-radius:12px;padd
 
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const K={bank:"leitner_m_bank",progress:"leitner_m_progress",quota:"leitner_m_quota",limit:"leitner_m_limit",decks:"leitner_m_decks",stats:"leitner_m_stats",store:"leitner_m_store"};
+const K={bank:"leitner_m_bank",progress:"leitner_m_progress",quota:"leitner_m_quota",limit:"leitner_m_limit",decks:"leitner_m_decks",stats:"leitner_m_stats",store:"leitner_m_store",plan:"leitner_m_plan",used:"leitner_m_used"};
 const LANGS={en:["انگلیسی","en-US","ltr"],ar:["عربی","ar-SA","rtl"],fr:["فرانسوی","fr-FR","ltr"],de:["آلمانی","de-DE","ltr"],tr:["ترکی","tr-TR","ltr"],es:["اسپانیایی","es-ES","ltr"]};
 const DEF=()=>({
  en:[["abandon","رها کردن"],["keen","مشتاق"],["jealous","حسود"],["tact","تدبیر"],["oath","سوگند"],["vacant","خالی"],["hardship","سختی"],["gallant","شجاع"],["data","اطلاعات"],["bachelor","مرد مجرد"]].map(([word,meaning])=>({word,meaning})),
@@ -225,11 +253,15 @@ let bank=ld(K.bank,DEF()),progress=ld(K.progress,{en:{},ar:{}}),quota=ld(K.quota
 let decks=ld(K.decks,null)||Object.keys(bank).map(id=>({id,name:(LANGS[id]||[id])[0],lang:LANGS[id]?id:"en"}));
 if(!Number.isFinite(limit))limit=5;
 let deck=decks[0].id,view="flash",mode="card",tagSel="",fi=0,li=0,lf="due",q=[],arm=null,cur=null,lock=false,pend=false,sList=null,sTried=false;
-const IV={1:1,2:2,3:4,4:8,5:16},TITLE={flash:"فلش‌کارت",leit:"مرور امروز",st:"آمار",bank:"بانک لغات",set:"تنظیمات"};
+const IV={1:1,2:2,3:4,4:8,5:16},TITLE={flash:"فلش‌کارت",leit:"مرور امروز",st:"آمار",bank:"دسته‌های من",store:"فروشگاه",set:"تنظیمات"};
 const fa=n=>Number(n).toLocaleString("fa-IR");
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const D=()=>decks.find(d=>d.id===deck)||decks[0],LG=()=>LANGS[D().lang]||LANGS.en;
-const W=()=>bank[deck]||[],WF=()=>tagSel?W().filter(w=>w.tag===tagSel):W();
+const DEMO=true,RANK={free:0,standard:1,premium:2},PLN={free:"رایگان",standard:"استاندارد",premium:"ویژه"};
+let plan=ld(K.plan,{level:"free",until:0}),sess={r:0,c:0};
+const lvl=()=>plan.until>Date.now()?plan.level:"free",isLocked=d=>(RANK[d.access||"free"]||0)>RANK[lvl()],canEdit=()=>RANK[lvl()]>=1;
+const rel=t=>{const d=Math.floor((Date.now()-t)/864e5);return d<=0?"امروز":d===1?"دیروز":fa(d)+" روز پیش"};
+const W=()=>isLocked(D())?[]:(bank[deck]||[]),WF=()=>tagSel?W().filter(w=>w.tag===tagSel):W();
 const P=(w,id=deck)=>{progress[id]=progress[id]||{};const k=id+"::"+w;return progress[id][k]||(progress[id][k]={box:0,lastReviewed:null,nextReview:null,miss:0})};
 const PR=(id,w)=>(progress[id]&&progress[id][id+"::"+w])||{};
 const dayAt=n=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+n);return d.getTime()};
@@ -262,10 +294,10 @@ const nz=s=>s.toLowerCase().replace(/[\u064B-\u0652\u0640]/g,"").replace(/[أإ�
 function lev(a,b){const m=[...Array(b.length+1).keys()];for(let i=1;i<=a.length;i++){let p=m[0];m[0]=i;for(let j=1;j<=b.length;j++){const t=m[j];m[j]=Math.min(m[j]+1,m[j-1]+1,p+(a[i-1]===b[j-1]?0:1));p=t}}return m[b.length]}
 
 /* نمایش */
-function rDk(){$("#dk").innerHTML=decks.map(d=>`<button class="pill ${d.id===deck?"on":""}" data-d="${esc(d.id)}">${esc(d.name)}</button>`).join("")+'<button class="pill" data-d="+">➕</button>';
+function rDk(){$("#dk").innerHTML=decks.map(d=>`<button class="pill ${d.id===deck?"on":""}" data-d="${esc(d.id)}">${isLocked(d)?"🔒 ":""}${esc(d.name)}</button>`).join("")+'<button class="pill" data-d="+">➕</button>';
   const tg=[...new Set(W().map(w=>w.tag).filter(Boolean))];if(tagSel&&!tg.includes(tagSel))tagSel="";
   $("#tg").innerHTML=tg.length?[""].concat(tg).map(t=>`<button class="pill ${t===tagSel?"on":""}" data-g="${esc(t)}">${t?"#"+esc(t):"همه برچسب‌ها"}</button>`).join(""):"";
-  $("#dk").hidden=view==="set"||view==="st";$("#tg").hidden=!(view==="flash"||view==="leit")}
+  $("#dk").hidden=view==="set"||view==="st"||view==="store";$("#tg").hidden=!(view==="flash"||view==="leit")}
 function rF(){const w=WF();$("#fc").hidden=!w.length;if(!w.length){$("#fcC").textContent="کارتی نیست";$("#fx").innerHTML="";return}
   if(fi>=w.length)fi=0;setCard($("#fc"),w[fi]);$("#fx").innerHTML=xdet(w[fi]);$("#fcC").textContent=fa(fi+1)+" / "+fa(w.length);$("#prev").disabled=fi===0;$("#next").disabled=fi===w.length-1}
 function qz(w){lock=false;$("#fb").textContent="";$("#qx").innerHTML="";$("#fb").className="fb";const e=$("#qc");
@@ -274,16 +306,16 @@ function qz(w){lock=false;$("#fb").textContent="";$("#qx").innerHTML="";$("#fb")
     $("#opts").innerHTML=mix([...pool,w.meaning]).map(m=>`<button data-o="${esc(m)}">${esc(m)}</button>`).join("")}
   else{e.textContent=w.meaning;e.dir="rtl";$("#opts").hidden=true;$("#tpBox").hidden=false;const i=$("#tpIn");i.value="";i.dir=LG()[2];i.disabled=false;$("#tpOk").hidden=false;$("#tpNx").hidden=true;if(view==="leit")i.focus()}}
 function rL(){const c=[0,0,0,0,0,0,0];W().forEach(x=>{const b=P(x.word).box;if(b>=1)c[Math.min(b,6)]++});
-  $("#fl").innerHTML=[["due","⏰ موعد",dueList().length],...[1,2,3,4,5].map(i=>[i,"ج"+fa(i),c[i]]),[6,"✅ یادگرفته",c[6]]].map(([k,l,n])=>`<button class="pill ${String(k)===lf?"on":""}" data-f="${k}">${l} ${fa(n)}</button>`).join("");
+  $("#fl").innerHTML=[["due","⏰ موعد",dueList().length],...[1,2,3,4,5].map(i=>[i,"ج"+fa(i),c[i]]),[6,"✅ یادگرفته",c[6]],["hard","⚠️ دشوار",W().filter(w=>(P(w.word).miss||0)>=2).length]].map(([k,l,n])=>`<button class="pill ${String(k)===lf?"on":""}" data-f="${k}">${l} ${fa(n)}</button>`).join("");
   $$("#md button").forEach(b=>b.classList.toggle("on",b.dataset.m===mode));
   $("#pg").style.width=(W().length?Math.round(c[6]/W().length*100):0)+"%";
-  q=lf==="due"?dueList():WF().filter(w=>{const b=P(w.word).box;return +lf===6?b>=6:b===+lf});
+  q=lf==="due"?dueList():lf==="hard"?WF().filter(w=>(P(w.word).miss||0)>=2):WF().filter(w=>{const b=P(w.word).box;return +lf===6?b>=6:b===+lf});
   if(li>=q.length)li=0;const has=q.length>0,card=mode==="card";
-  $("#lE").hidden=has;$("#lC").textContent=has?fa(li+1)+" / "+fa(q.length):"";
+  $("#lE").hidden=has;$("#lC").textContent=has?fa(li+1)+" / "+fa(q.length)+(sess.r?" · این جلسه: "+fa(sess.c)+" از "+fa(sess.r):""):"";
   $("#lc").hidden=!has||!card;$("#ans").hidden=!has||!card;$("#qz").hidden=!has||card;
-  if(!has){cur=null;$("#lE").textContent=lf==="due"?"کارتی برای مرور امروز نیست 🎉":"کارتی در این جعبه نیست.";return}
-  cur=q[li];$("#lx").innerHTML="";if(card)setCard($("#lc"),cur);else qz(cur)}
-function answer(ok){if(!q.length||!cur)return;const w=cur.word,p=P(w);p.box=ok?Math.min(p.box+1,6):1;if(!ok)p.miss=(p.miss||0)+1;
+  if(!has){cur=null;$("#lm").textContent="";$("#lE").textContent=isLocked(D())?"🔒 این دسته قفل است":lf==="due"?"کارتی برای مرور امروز نیست 🎉":"کارتی در این جعبه نیست.";return}
+  cur=q[li];$("#lx").innerHTML="";{const pc=P(cur.word);$("#lm").textContent=`جعبه ${fa(pc.box)} · ${fa(pc.miss||0)} اشتباه · `+(pc.lastReviewed?"آخرین مرور: "+rel(pc.lastReviewed):"اولین مرور")}if(card)setCard($("#lc"),cur);else qz(cur)}
+function answer(ok){if(!q.length||!cur)return;const w=cur.word,p=P(w);sess.r++;if(ok)sess.c++;p.box=ok?Math.min(p.box+1,6):1;if(!ok)p.miss=(p.miss||0)+1;
   p.lastReviewed=Date.now();p.nextReview=p.box>=6?null:dayAt(IV[p.box]);sv(K.progress,progress);bump(ok);
   rL();if(q.length>1&&cur&&cur.word===w){li=(li+1)%q.length;rL()}
   $("#subt").textContent=fa(dueList().length)+" کارت موعد رسیده"}
@@ -299,24 +331,69 @@ function rSt(){let r30=0,c30=0;for(let i=0;i<30;i++){const x=stats[dS(agoD(i))];
   <div class="grp"><h3>۱۲ هفته اخیر</h3><div class="heat">${h}</div></div>
   <div class="grp"><h3>⚠️ لغات دشوار</h3>${hard.length?hard.map(x=>`<div class="item"><div><b dir="auto">${esc(x.w.word)}</b> — ${esc(x.w.meaning)}<br><span>${esc(x.d.name)}</span></div><span>${fa(x.m)} اشتباه</span></div>`).join(""):'<p class="info">هنوز لغت دشواری ثبت نشده.</p>'}</div>`}
 function rB(){$("#dl").innerHTML=decks.map(d=>`<div class="item"><div><b>${esc(d.name)}</b><br><span>${(LANGS[d.lang]||LANGS.en)[0]} · ${fa((bank[d.id]||[]).length)} لغت</span></div><button class="dg" data-dd="${esc(d.id)}">حذف</button></div>`).join("");
-  $("#bSt").innerHTML=[["همه دسته‌ها",decks.length],["لغات این دسته",W().length]].map(([l,n])=>`<div class="stat"><b>${fa(n)}</b><span>${l}</span></div>`).join("");rStore()}
+  $("#bSt").innerHTML=[["همه دسته‌ها",decks.length],["لغات این دسته",W().length]].map(([l,n])=>`<div class="stat"><b>${fa(n)}</b><span>${l}</span></div>`).join("")}
 function rS(){const t=tc(),z=W().filter(w=>P(w.word).box===0).length;$("#qIn").value=limit;$("#stIn").value=store;
   $("#qSt").textContent=`دسته «${D().name}»: امروز ${fa(t)} از ${fa(limit)} لغت جدید وارد مرور شد. در انتظار: ${fa(z)}`}
-function render(){rDk();({flash:rF,leit:rL,st:rSt,bank:rB,set:rS})[view]();$("#hi").textContent=TITLE[view];
-  $("#subt").textContent=view==="leit"?fa(dueList().length)+" کارت موعد رسیده":view==="st"?"🔥 "+fa(streak())+" روز پیاپی":view==="bank"?"دسته‌ها و فروشگاه":view==="flash"?"🔥 "+fa(streak())+" روز پیاپی":"پیشرفت و برنامه"}
+function lockUI(){const lk=isLocked(D())&&(view==="flash"||view==="leit");$("#lk").hidden=!lk;if(lk)$("#lkT").textContent=`دسته «${D().name}» در اشتراک ${PLN[D().access]} باز می‌شود. اشتراک شما: ${PLN[lvl()]}.`}
+function render(){rDk();lockUI();({flash:rF,leit:rL,st:rSt,bank:rB,store:rStoreV,set:rS})[view]();$("#hi").textContent=TITLE[view];
+  $("#subt").textContent=view==="leit"?fa(dueList().length)+" کارت موعد رسیده":view==="st"?"🔥 "+fa(streak())+" روز پیاپی":view==="bank"?"دسته‌های من و ورود لغت":view==="store"?"دسته‌های آماده و اشتراک":view==="flash"?"🔥 "+fa(streak())+" روز پیاپی":"پیشرفت و برنامه"}
 function show(v){view=v;$$("main section").forEach(s=>s.hidden=s.id!=="v-"+v);$$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
-  if(v==="bank"&&!sTried){sTried=true;loadStore()}render();window.scrollTo(0,0)}
+  if(v==="store"&&!sTried){sTried=true;loadStore()}render();window.scrollTo(0,0)}
 function setDeck(id){deck=id;tagSel="";fi=li=0;lf="due";intro();render()}
 
-/* فروشگاه دسته‌ها */
-const sBase=()=>new URL(store,location.href);
-async function loadStore(){$("#sSt").textContent="در حال بارگذاری…";try{const r=await fetch(sBase(),{cache:"no-cache"});if(!r.ok)throw 0;sList=await r.json();$("#sSt").textContent=fa(sList.length)+" دسته در فروشگاه"}catch(e){sList=null;$("#sSt").textContent="فهرست دریافت نشد. اینترنت یا آدرس فروشگاه (در تنظیمات) را بررسی کنید."}rStore()}
-function rStore(){$("#sl").innerHTML=(sList||[]).map(it=>`<div class="item"><div><b>${esc(it.name)}</b><br><span>${(LANGS[it.lang]||LANGS.en)[0]} · ${fa(it.count||"")} لغت${it.desc?" · "+esc(it.desc):""}</span></div><button class="pri" data-sd="${esc(it.id)}">${decks.some(d=>d.id===it.id)?"به‌روزرسانی":"افزودن"}</button></div>`).join("")}
-async function addStore(id){const it=(sList||[]).find(x=>x.id===id);if(!it)return;
-  try{const r=await fetch(new URL(it.file,sBase()));if(!r.ok)throw 0;const ws=parseCSV(await r.text());
-    if(!decks.some(d=>d.id===id)){decks.push({id,name:it.name,lang:it.lang||"en"});bank[id]=[]}
-    const ex=new Set((bank[id]||[]).map(w=>w.word));let n=0;ws.forEach(w=>{if(!ex.has(w.word)){bank[id].push(w);n++}});
-    saveAll();deck=id;tagSel="";intro();render();toast(fa(n)+" لغت اضافه شد")}catch(e){toast("دریافت دسته ناموفق بود")}}
+/* فروشگاه دسته‌ها و اشتراک */
+const sBase=()=>new URL(store,location.href),ACCL={free:"🆓 رایگان",standard:"⭐ استاندارد",premium:"👑 ویژه"},have=id=>decks.find(d=>d.id===id);
+const jd=t=>new Intl.DateTimeFormat("fa-IR-u-ca-persian",{year:"numeric",month:"long",day:"numeric"}).format(t);
+let sF={q:"",lang:"",lv:"",acc:"",sort:"new"},sLoad=false,pwM=3;
+async function loadStore(){sLoad=true;rStoreV();try{const r=await fetch(sBase(),{cache:"no-cache"});if(!r.ok)throw 0;sList=await r.json()}catch(e){sList=null}sLoad=false;rStoreV()}
+function pillRow(el,key,vals){$(el).innerHTML=vals.map(([v,l])=>`<button class="pill ${sF[key]===v?"on":""}" data-v="${esc(v)}">${l}</button>`).join("")}
+function rStoreV(){const L=lvl();
+  $("#plBox").innerHTML=`<h3>${L==="free"?"طرح فعلی: رایگان":"طرح فعلی: "+PLN[L]}</h3><p class="info">${L==="free"?"با اشتراک، همه دسته‌های استاندارد و افزودن لغت دستی باز می‌شود.":"اعتبار تا "+jd(plan.until)+" ("+fa(Math.ceil((plan.until-Date.now())/864e5))+" روز مانده)"}</p><button class="pri" id="plB">اشتراک‌ها و کد هدیه</button>`;
+  const all=sList||[];
+  pillRow("#stL","lang",[["","همه زبان‌ها"],...[...new Set(all.map(i=>i.lang))].map(l=>[l,(LANGS[l]||[l])[0]])]);
+  pillRow("#stV","lv",[["","همه سطح‌ها"],...[...new Set(all.map(i=>i.level).filter(Boolean))].sort().map(l=>[l,l])]);
+  pillRow("#stA","acc",[["","همه"],["free",ACCL.free],["standard",ACCL.standard],["premium",ACCL.premium]]);
+  const q=nz(sF.q.trim());
+  const a=all.filter(it=>(!sF.lang||it.lang===sF.lang)&&(!sF.lv||it.level===sF.lv)&&(!sF.acc||(it.access||"free")===sF.acc)&&(!q||nz([it.name,it.desc,it.topic,...(it.tags||[])].join(" ")).includes(q)));
+  a.sort((x,y)=>sF.sort==="cnt"?(y.count||0)-(x.count||0):sF.sort==="az"?x.name.localeCompare(y.name,"fa"):(y.updated||"").localeCompare(x.updated||""));
+  $("#sSt").textContent=sLoad?"در حال بارگذاری…":sList?fa(a.length)+" دسته":"فهرست دریافت نشد؛ اینترنت یا آدرس فروشگاه (تنظیمات) را بررسی کنید.";
+  $("#sl").innerHTML=a.map(it=>{const acc=it.access||"free",lk=RANK[acc]>RANK[L],h=have(it.id),up=h&&(h.version||1)<(it.version||1);
+    return `<div class="dcard" style="--c:${esc(it.color||"#1a6cf0")}"><div class="dcov">${esc(it.emoji||"📘")}</div><div class="dbody"><b>${esc(it.name)}</b><div class="dm">${(LANGS[it.lang]||LANGS.en)[0]} · ${esc(it.level||"")} · ${fa(it.count||0)} لغت</div><p class="desc">${esc(it.desc||"")}</p><div class="dbd"><span class="bdg">${ACCL[acc]}</span>${(it.tags||[]).slice(0,3).map(t=>`<span class="bdg">#${esc(t)}</span>`).join("")}</div><div class="row" style="margin:4px 0 0"><button data-pv="${esc(it.id)}">پیش‌نمایش</button><button class="${lk||(h&&!up)?"":"pri"}" data-ad="${esc(it.id)}">${h?(up?"به‌روزرسانی":"✓ افزوده شده"):lk?"🔒 "+PLN[acc]:"افزودن"}</button></div></div></div>`}).join("")||(sLoad?"":'<div class="empty" style="grid-column:1/-1">دسته‌ای پیدا نشد.</div>')}
+function showPv(id){const it=(sList||[]).find(x=>x.id===id);if(!it)return;const d=$("#dPv"),acc=it.access||"free",lk=RANK[acc]>RANK[lvl()],h=have(id);
+  d.innerHTML=`<div class="top"><div class="ic" style="background:${esc(it.color||"#1a6cf0")}26">${esc(it.emoji||"📘")}</div><div class="nm" style="font-size:18px">${esc(it.name)}</div></div><p>${esc(it.desc||"")}</p>
+  <p class="tg">${ACCL[acc]} · ${(LANGS[it.lang]||LANGS.en)[0]} · سطح ${esc(it.level||"")} · ${fa(it.count||0)} لغت · نسخه ${fa(it.version||1)}<br>${(it.tags||[]).map(t=>"#"+esc(t)).join(" ")}</p>
+  <b>نمونه لغات</b>${(it.preview||[]).map(w=>`<div class="item"><div><b dir="auto">${esc(w.word)}</b> — ${esc(w.meaning)}${w.example?`<br><span dir="auto">${esc(w.example)}</span>`:""}</div></div>`).join("")}
+  <div class="row"><button class="pri" id="pvA">${lk?"🔒 مشاهده اشتراک‌ها":h?"به‌روزرسانی":"افزودن"}</button><button id="pvX">بستن</button></div>`;
+  d.showModal();$("#pvA").onclick=()=>{d.close();addStore(id)};$("#pvX").onclick=()=>d.close()}
+async function addStore(id){const it=(sList||[]).find(x=>x.id===id);if(!it)return;const acc=it.access||"free";
+  if(RANK[acc]>RANK[lvl()])return paywall("این دسته با اشتراک "+PLN[acc]+" باز می‌شود.");
+  try{const r=await fetch(new URL(it.file,sBase()),{cache:"no-cache"});if(!r.ok)throw 0;const j=await r.json();if(j.schema!==2||!Array.isArray(j.words))throw 0;
+    let d=have(id);if(!d){d={id};decks.push(d);bank[id]=[]}
+    Object.assign(d,{name:it.name,lang:it.lang||"en",access:acc,emoji:it.emoji,color:it.color,version:it.version||1,origin:"store"});
+    const ex=new Set((bank[id]||[]).map(w=>w.word));let n=0;
+    j.words.forEach(w=>{if(!ex.has(w.word)){bank[id].push({word:w.word,meaning:w.meaning,tag:w.tag||"",example:w.example||"",note:w.note||""});n++}});
+    saveAll();deck=id;tagSel="";intro();toast(fa(n)+" لغت اضافه شد");show("flash")}catch(e){toast("دریافت دسته ناموفق بود")}}
+
+/* اشتراک (حالت آزمایشی؛ در نسخه نهایی با سرور و پرداخت فروشگاه جایگزین می‌شود) */
+const GC={TRIAL7:["standard",7],PRO7:["premium",7]};
+function grant(level,days){const c=lvl();plan={level:RANK[level]>RANK[c]?level:c,until:Math.max(Date.now(),plan.until||0)+days*864e5};sv(K.plan,plan);render();rPw()}
+function paywall(msg){$("#pwI").textContent=msg||"";rPw();$("#dPw").showModal()}
+function rPw(){$$("#pwD button").forEach(b=>b.classList.toggle("on",+b.dataset.m===pwM));
+  const bt=l=>DEMO?`<button class="pri" data-bp="${l}">فعال‌سازی آزمایشی</button>`:'<button disabled>به‌زودی</button>';
+  $("#pwS").innerHTML=`<div><b>⭐ استاندارد</b><br><span>همه دسته‌های استاندارد · افزودن لغت دستی · ورود CSV</span></div>${bt("standard")}`;
+  $("#pwP").innerHTML=`<div><b>👑 ویژه</b><br><span>همه امکانات استاندارد + دسته‌های ویژه</span></div>${bt("premium")}`;
+  $("#pwN").textContent=DEMO?"حالت آزمایشی: پرداختی انجام نمی‌شود. کدهای نمونه: TRIAL7 و PRO7.":"قیمت‌ها در مرحله پرداخت تعیین می‌شود."}
+function redeem(){const c=$("#gc").value.trim().toUpperCase(),used=ld(K.used,[]);if(!DEMO)return toast("فعال‌سازی کد با سرور انجام می‌شود (به‌زودی)");
+  if(!GC[c])return toast("کد نامعتبر است");if(used.includes(c))return toast("این کد قبلاً استفاده شده");
+  grant(GC[c][0],GC[c][1]);sv(K.used,[...used,c]);$("#gc").value="";toast("اشتراک "+PLN[GC[c][0]]+" برای "+fa(GC[c][1])+" روز فعال شد")}
+$("#pwD").onclick=e=>{const m=+e.target.dataset.m;if(!m)return;pwM=m;rPw()};
+$("#dPw").onclick=e=>{const l=e.target.dataset.bp;if(l){grant(l,pwM*30);toast("اشتراک "+PLN[l]+" برای "+fa(pwM)+" ماه (آزمایشی) فعال شد")}};
+$("#gcB").onclick=redeem;$("#pwX").onclick=()=>$("#dPw").close();$("#lkB").onclick=()=>paywall();
+$("#plBox").onclick=e=>{if(e.target.id==="plB")paywall()};
+$("#stq").oninput=()=>{sF.q=$("#stq").value;rStoreV()};$("#stS").onchange=()=>{sF.sort=$("#stS").value;rStoreV()};
+[["#stL","lang"],["#stV","lv"],["#stA","acc"]].forEach(([el,k])=>$(el).onclick=e=>{const v=e.target.dataset.v;if(v==null)return;sF[k]=v;rStoreV()});
+$("#sl").onclick=e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.pv)showPv(b.dataset.pv);else if(b.dataset.ad)addStore(b.dataset.ad)};
+const ownOk=()=>{if(!canEdit()){paywall("افزودن لغت و ورود داده با اشتراک فعال می‌شود.");return false}if(D().origin==="store"){toast("این دسته فروشگاهی است؛ یک دسته شخصی بسازید یا انتخاب کنید");return false}return true};
 
 /* جزئیات، جستجو و حالت رانندگی */
 const xdet=w=>(w.example?`<div class="xe" dir="${LG()[2]}">${esc(w.example)}</div>`:"")+(w.note?`<div class="xn">${esc(w.note)}</div>`:"");
@@ -324,7 +401,7 @@ function flipL(){const c=$("#lc");c.classList.toggle("f");$("#lx").innerHTML=c.c
 let sres=[];
 $("#sq").oninput=()=>{const t=nz($("#sq").value.trim()),r=$("#sr");$("#fArea").hidden=!!t;sres=[];
   if(!t){r.innerHTML="";return}
-  for(const d of decks){for(const w of bank[d.id]||[]){if(nz([w.word,w.meaning,w.tag,w.example,w.note].join(" ")).includes(t))sres.push([d,w]);if(sres.length>=40)break}if(sres.length>=40)break}
+  for(const d of decks){if(isLocked(d))continue;for(const w of bank[d.id]||[]){if(nz([w.word,w.meaning,w.tag,w.example,w.note].join(" ")).includes(t))sres.push([d,w]);if(sres.length>=40)break}if(sres.length>=40)break}
   r.innerHTML=sres.length?sres.map(([d,w],k)=>`<div class="item" data-k="${k}"><div><b dir="auto">${esc(w.word)}</b> — ${esc(w.meaning)}<br><span>${esc(d.name)}${w.tag?" · #"+esc(w.tag):""}</span></div></div>`).join(""):'<div class="empty">چیزی پیدا نشد.</div>'};
 $("#sr").onclick=e=>{const k=e.target.closest(".item")?.dataset.k;if(k==null)return;const[d,w]=sres[k];
   if(d.id!==deck)setDeck(d.id);tagSel="";fi=Math.max(0,WF().indexOf(w));$("#sq").value="";$("#sr").innerHTML="";$("#fArea").hidden=false;render()};
@@ -373,6 +450,9 @@ $("#sw").onclick=e=>{const c=e.target.dataset.c;if(!c)return;thm.acc=c;sv("leitn
 $("#tm").onclick=e=>{const m=e.target.dataset.tm;if(!m)return;thm.mode=m;sv("leitner_m_theme",thm);applyTheme()};
 applyTheme();
 
+document.addEventListener("contextmenu",e=>{if(!/INPUT|TEXTAREA/.test(e.target.tagName))e.preventDefault()});
+document.addEventListener("copy",e=>{if(!/INPUT|TEXTAREA/.test((document.activeElement||{}).tagName||""))e.preventDefault()});
+
 /* رویدادها */
 $("#fc").addEventListener("click",e=>{if(!e.target.closest(".spk"))$("#fc").classList.toggle("f")});
 $("#lc").addEventListener("click",e=>{if(!e.target.closest(".spk"))flipL()});
@@ -393,35 +473,35 @@ addEventListener("keydown",e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)
   else if(view==="leit"&&e.key==="ArrowRight")answer(true);else if(view==="leit"&&e.key==="ArrowLeft")answer(false)});
 
 $("#dLg").innerHTML=Object.entries(LANGS).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join("");
-$("#dAdd").onclick=()=>{const n=$("#dN").value.trim();if(!n)return toast("نام دسته را بنویسید");const id=(n.replace(/[^\w\u0600-\u06ff]+/g,"-")||"d")+"-"+Date.now().toString(36);
+$("#dAdd").onclick=()=>{if(!canEdit())return paywall("ساخت دسته شخصی با اشتراک فعال می‌شود.");const n=$("#dN").value.trim();if(!n)return toast("نام دسته را بنویسید");const id=(n.replace(/[^\w\u0600-\u06ff]+/g,"-")||"d")+"-"+Date.now().toString(36);
   decks.push({id,name:n,lang:$("#dLg").value});bank[id]=[];saveAll();$("#dN").value="";deck=id;tagSel="";render();toast("دسته ساخته شد؛ لغت اضافه کنید")};
 $("#dl").onclick=e=>{const id=e.target.dataset.dd;if(!id)return;if(decks.length<2)return toast("حداقل یک دسته لازم است");if(!sure("dd"+id,"حذف دسته"))return;
   decks=decks.filter(d=>d.id!==id);delete bank[id];delete progress[id];delete quota[id];if(deck===id)deck=decks[0].id;saveAll();render()};
-$("#sl").onclick=e=>{const id=e.target.dataset.sd;if(id)addStore(id)};$("#sRe").onclick=loadStore;
+$("#sRe").onclick=loadStore;
 $("#stSv").onclick=()=>{store=$("#stIn").value.trim()||"decks/index.json";sv(K.store,store);sTried=false;sList=null;toast("ذخیره شد")};
 
 $("#impF").onchange=e=>readFile(e.target,$("#impT"));
 function getImp(){const v=parseCSV($("#impT").value);if(!v.length)toast("خط معتبری پیدا نشد");return v}
-$("#impAdd").onclick=()=>{const v=getImp();if(!v.length)return;bank[deck]=bank[deck]||[];const ex=new Set(W().map(w=>w.word));let n=0;
+$("#impAdd").onclick=()=>{if(!ownOk())return;const v=getImp();if(!v.length)return;bank[deck]=bank[deck]||[];const ex=new Set(W().map(w=>w.word));let n=0;
   v.forEach(w=>{if(!ex.has(w.word)){bank[deck].push(w);ex.add(w.word);n++}});saveAll();$("#impT").value="";toast(fa(n)+" لغت اضافه شد");intro();render()};
-$("#impRep").onclick=()=>{const v=getImp();if(!v.length)return;if(!sure("rep","جایگزینی دسته"))return;bank[deck]=v;saveAll();$("#impT").value="";fi=li=0;intro();render();toast("جایگزین شد")};
-$("#mAdd").onclick=()=>{const w=$("#mW").value.trim(),m=$("#mM").value.trim();if(!w||!m)return toast("لغت و معنی را پر کنید");
+$("#impRep").onclick=()=>{if(!ownOk())return;const v=getImp();if(!v.length)return;if(!sure("rep","جایگزینی دسته"))return;bank[deck]=v;saveAll();$("#impT").value="";fi=li=0;intro();render();toast("جایگزین شد")};
+$("#mAdd").onclick=()=>{if(!ownOk())return;const w=$("#mW").value.trim(),m=$("#mM").value.trim();if(!w||!m)return toast("لغت و معنی را پر کنید");
   if(W().some(x=>x.word===w))return toast("این لغت قبلاً هست");bank[deck]=bank[deck]||[];bank[deck].push({word:w,meaning:m,tag:$("#mT").value.trim(),example:$("#mE").value.trim(),note:$("#mN").value.trim()});saveAll();$("#mW").value=$("#mM").value=$("#mT").value=$("#mE").value=$("#mN").value="";toast("اضافه شد");intro();render()};
-$("#csvDl").onclick=()=>dl("words-"+deck+".csv",toCSV(W()),"text/csv;charset=utf-8");$("#csvCp").onclick=()=>copy(toCSV(W()));
+
 $("#qSv").onclick=()=>{const v=parseInt($("#qIn").value,10);if(isNaN(v)||v<0||v>100)return toast("عدد بین ۰ تا ۱۰۰");limit=v;sv(K.limit,limit);intro();render();toast("ذخیره شد")};
 
 /* پشتیبان و کد انتقال */
-const backup=()=>JSON.stringify({v:2,at:new Date().toISOString(),decks,bank,progress,quota,stats,limit});
+const backup=()=>{const ud=decks.filter(d=>d.origin!=="store"),b={};ud.forEach(d=>b[d.id]=bank[d.id]||[]);return JSON.stringify({v:3,at:new Date().toISOString(),decks:ud,bank:b,progress,quota,stats,limit})};
 const b64=u=>{let s="";for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode(...u.subarray(i,i+8192));return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")};
 async function enc(t){const s=new Blob([t]).stream().pipeThrough(new CompressionStream("gzip"));return "LTN1."+b64(new Uint8Array(await new Response(s).arrayBuffer()))}
 async function dec(c){c=c.trim().replace(/^LTN1\./,"").replace(/-/g,"+").replace(/_/g,"/");const b=Uint8Array.from(atob(c),x=>x.charCodeAt(0));return new Response(new Blob([b]).stream().pipeThrough(new DecompressionStream("gzip"))).text()}
-$("#bkDl").onclick=()=>dl("leitner-backup-"+todayS()+".json",backup(),"application/json");$("#bkCp").onclick=()=>copy(backup());
+
 $("#bkCode").onclick=async()=>{try{const c=await enc(backup());$("#bkT").value=c;copy(c)}catch(e){toast("مرورگر از کد انتقال پشتیبانی نمی‌کند؛ از فایل JSON استفاده کنید")}};
-$("#bkF").onchange=e=>readFile(e.target,$("#bkT"));
+
 $("#bkIm").onclick=async()=>{try{let t=$("#bkT").value.trim();if(t[0]!=="{")t=await dec(t);const v=JSON.parse(t);if(!v.bank||typeof v.bank!=="object")throw 0;
   if(!sure("bk","جایگزینی همه داده‌ها"))return;
-  bank=v.bank;decks=v.decks&&v.decks.length?v.decks:Object.keys(bank).map(id=>({id,name:(LANGS[id]||[id])[0],lang:LANGS[id]?id:"en"}));decks.forEach(d=>bank[d.id]=bank[d.id]||[]);
-  progress=v.progress||{};quota=v.quota||{};stats=v.stats||{};limit=Number.isFinite(+v.limit)?+v.limit:5;saveAll();$("#bkT").value="";setDeck(decks[0].id);toast("درون‌ریزی شد")}catch(e){toast("پشتیبان یا کد نامعتبر است")}};
+  const keepS=decks.filter(d=>d.origin==="store"),sb={};keepS.forEach(d=>sb[d.id]=bank[d.id]||[]);const ud=(v.decks&&v.decks.length?v.decks:Object.keys(v.bank).map(id=>({id,name:(LANGS[id]||[id])[0],lang:LANGS[id]?id:"en"}))).filter(d=>d.origin!=="store");bank={...v.bank,...sb};decks=[...ud,...keepS];if(!decks.length)decks=defDecks();decks.forEach(d=>bank[d.id]=bank[d.id]||[]);
+  progress={...progress,...(v.progress||{})};quota=v.quota||{};stats=v.stats||{};limit=Number.isFinite(+v.limit)?+v.limit:5;saveAll();$("#bkT").value="";setDeck(decks[0].id);toast("درون‌ریزی شد")}catch(e){toast("پشتیبان یا کد نامعتبر است")}};
 $("#rst").onclick=()=>{if(!sure("rst","ریست همه داده‌ها"))return;bank=DEF();decks=defDecks();progress={en:{},ar:{}};quota={};stats={};limit=5;saveAll();setDeck("en");toast("ریست شد")};
 
 /* نصب PWA */

@@ -1,0 +1,91 @@
+{
+ "schema": 2,
+ "id": "fr-basic",
+ "name": "فرانسوی — مکالمه پایه",
+ "lang": "fr",
+ "level": "A1",
+ "topic": "مکالمه",
+ "access": "standard",
+ "emoji": "🥐",
+ "color": "#db2777",
+ "desc": "جمله‌ها و واژه‌های اولیه برای شروع",
+ "tags": [
+  "پایه",
+  "مکالمه"
+ ],
+ "version": 1,
+ "updated": "2026-10-24",
+ "count": 10,
+ "words": [
+  {
+   "word": "bonjour",
+   "meaning": "سلام",
+   "tag": "احوال‌پرسی",
+   "example": "Bonjour, madame.",
+   "note": ""
+  },
+  {
+   "word": "merci",
+   "meaning": "ممنون",
+   "tag": "احوال‌پرسی",
+   "example": "Merci beaucoup !",
+   "note": ""
+  },
+  {
+   "word": "s’il vous plaît",
+   "meaning": "لطفاً",
+   "tag": "احوال‌پرسی",
+   "example": "Un café, s’il vous plaît.",
+   "note": ""
+  },
+  {
+   "word": "au revoir",
+   "meaning": "خداحافظ",
+   "tag": "احوال‌پرسی",
+   "example": "Au revoir et à demain.",
+   "note": ""
+  },
+  {
+   "word": "oui",
+   "meaning": "بله",
+   "tag": "پایه",
+   "example": "Oui, je comprends.",
+   "note": ""
+  },
+  {
+   "word": "non",
+   "meaning": "خیر",
+   "tag": "پایه",
+   "example": "Non, merci.",
+   "note": ""
+  },
+  {
+   "word": "excusez-moi",
+   "meaning": "ببخشید",
+   "tag": "احوال‌پرسی",
+   "example": "Excusez-moi, où est la gare ?",
+   "note": ""
+  },
+  {
+   "word": "je m’appelle",
+   "meaning": "اسم من … است",
+   "tag": "معرفی",
+   "example": "Je m’appelle Sara.",
+   "note": ""
+  },
+  {
+   "word": "où est",
+   "meaning": "کجاست",
+   "tag": "پرسش",
+   "example": "Où est l’hôtel ?",
+   "note": ""
+  },
+  {
+   "word": "combien",
+   "meaning": "چقدر",
+   "tag": "پرسش",
+   "example": "Combien ça coûte ?",
+   "note": ""
+  }
+ ]
+}

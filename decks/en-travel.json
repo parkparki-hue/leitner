@@ -1,0 +1,105 @@
+{
+ "schema": 2,
+ "id": "en-travel",
+ "name": "انگلیسی — سفر",
+ "lang": "en",
+ "level": "A2",
+ "topic": "سفر",
+ "access": "standard",
+ "emoji": "✈️",
+ "color": "#0d9488",
+ "desc": "فرودگاه، هتل و حمل‌ونقل",
+ "tags": [
+  "سفر",
+  "مکالمه"
+ ],
+ "version": 1,
+ "updated": "2026-10-24",
+ "count": 12,
+ "words": [
+  {
+   "word": "luggage",
+   "meaning": "چمدان و بار",
+   "tag": "فرودگاه",
+   "example": "My luggage is too heavy.",
+   "note": "غیرقابل شمارش"
+  },
+  {
+   "word": "boarding pass",
+   "meaning": "کارت پرواز",
+   "tag": "فرودگاه",
+   "example": "Please show your boarding pass.",
+   "note": ""
+  },
+  {
+   "word": "delay",
+   "meaning": "تأخیر",
+   "tag": "فرودگاه",
+   "example": "The flight has a two hour delay.",
+   "note": ""
+  },
+  {
+   "word": "customs",
+   "meaning": "گمرک",
+   "tag": "فرودگاه",
+   "example": "We went through customs quickly.",
+   "note": ""
+  },
+  {
+   "word": "passport",
+   "meaning": "گذرنامه",
+   "tag": "فرودگاه",
+   "example": "Do not forget your passport.",
+   "note": ""
+  },
+  {
+   "word": "reservation",
+   "meaning": "رزرو",
+   "tag": "هتل",
+   "example": "I have a reservation under Ali.",
+   "note": ""
+  },
+  {
+   "word": "check in",
+   "meaning": "ثبت ورود",
+   "tag": "هتل",
+   "example": "What time can we check in?",
+   "note": ""
+  },
+  {
+   "word": "vacancy",
+   "meaning": "اتاق خالی",
+   "tag": "هتل",
+   "example": "Do you have any vacancies?",
+   "note": ""
+  },
+  {
+   "word": "receipt",
+   "meaning": "رسید",
+   "tag": "هتل",
+   "example": "Could I get a receipt please?",
+   "note": ""
+  },
+  {
+   "word": "fare",
+   "meaning": "کرایه",
+   "tag": "حمل‌ونقل",
+   "example": "The bus fare is two euros.",
+   "note": ""
+  },
+  {
+   "word": "platform",
+   "meaning": "سکو",
+   "tag": "حمل‌ونقل",
+   "example": "The train leaves from platform 5.",
+   "note": ""
+  },
+  {
+   "word": "direction",
+   "meaning": "جهت و مسیر",
+   "tag": "حمل‌ونقل",
+   "example": "Which direction is the station?",
+   "note": ""
+  }
+ ]
+}

@@ -1,5 +1,5 @@
 // با هر تغییر مهم فایل‌ها، عدد نسخه را بالا ببرید
-const V = "leitner-v3";
+const V = "leitner-v5";
 const FILES = ["./", "./index.html", "./manifest.webmanifest",
   "./icons/icon-180.png", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-maskable-512.png"];
 

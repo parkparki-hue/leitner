@@ -1,5 +1,320 @@
 [
-  { "id": "en-daily", "name": "انگلیسی — روزمره", "lang": "en", "desc": "فعل، صفت و اسم پرکاربرد", "file": "en-daily.csv", "count": 12 },
-  { "id": "en-travel", "name": "انگلیسی — سفر", "lang": "en", "desc": "فرودگاه، هتل و حمل‌ونقل", "file": "en-travel.csv", "count": 12 },
-  { "id": "ar-family", "name": "عربی — خانواده و خانه", "lang": "ar", "desc": "واژه‌های پایه", "file": "ar-family.csv", "count": 12 }
+ {
+  "id": "en-daily",
+  "name": "انگلیسی — روزمره",
+  "lang": "en",
+  "level": "A2",
+  "topic": "روزمره",
+  "access": "free",
+  "emoji": "📘",
+  "color": "#1a6cf0",
+  "desc": "فعل، صفت و اسم پرکاربرد برای شروع",
+  "tags": [
+   "پایه",
+   "روزمره"
+  ],
+  "version": 1,
+  "updated": "2026-10-24",
+  "count": 12,
+  "file": "en-daily.json",
+  "preview": [
+   {
+    "word": "borrow",
+    "meaning": "قرض گرفتن",
+    "example": "Can I borrow your pen?"
+   },
+   {
+    "word": "lend",
+    "meaning": "قرض دادن",
+    "example": "She lent me her car."
+   },
+   {
+    "word": "improve",
+    "meaning": "بهبود دادن",
+    "example": "I want to improve my English."
+   },
+   {
+    "word": "suggest",
+    "meaning": "پیشنهاد کردن",
+    "example": "I suggest we leave early."
+   },
+   {
+    "word": "avoid",
+    "meaning": "اجتناب کردن",
+    "example": "Try to avoid fast food."
+   }
+  ]
+ },
+ {
+  "id": "ar-family",
+  "name": "عربی — خانواده و خانه",
+  "lang": "ar",
+  "level": "A1",
+  "topic": "خانواده",
+  "access": "free",
+  "emoji": "🏠",
+  "color": "#16a34a",
+  "desc": "واژه‌های پایه خانواده و خانه",
+  "tags": [
+   "پایه",
+   "خانواده"
+  ],
+  "version": 1,
+  "updated": "2026-10-24",
+  "count": 12,
+  "file": "ar-family.json",
+  "preview": [
+   {
+    "word": "أخ",
+    "meaning": "برادر",
+    "example": "هذا أخي أحمد."
+   },
+   {
+    "word": "أخت",
+    "meaning": "خواهر",
+    "example": "أختي طبيبة."
+   },
+   {
+    "word": "ابن",
+    "meaning": "پسر",
+    "example": "ابني يدرس في المدرسة."
+   },
+   {
+    "word": "بنت",
+    "meaning": "دختر"
+   },
+   {
+    "word": "جد",
+    "meaning": "پدربزرگ"
+   }
+  ]
+ },
+ {
+  "id": "en-travel",
+  "name": "انگلیسی — سفر",
+  "lang": "en",
+  "level": "A2",
+  "topic": "سفر",
+  "access": "standard",
+  "emoji": "✈️",
+  "color": "#0d9488",
+  "desc": "فرودگاه، هتل و حمل‌ونقل",
+  "tags": [
+   "سفر",
+   "مکالمه"
+  ],
+  "version": 1,
+  "updated": "2026-10-24",
+  "count": 12,
+  "file": "en-travel.json",
+  "preview": [
+   {
+    "word": "luggage",
+    "meaning": "چمدان و بار",
+    "example": "My luggage is too heavy."
+   },
+   {
+    "word": "boarding pass",
+    "meaning": "کارت پرواز",
+    "example": "Please show your boarding pass."
+   },
+   {
+    "word": "delay",
+    "meaning": "تأخیر",
+    "example": "The flight has a two hour delay."
+   },
+   {
+    "word": "customs",
+    "meaning": "گمرک",
+    "example": "We went through customs quickly."
+   },
+   {
+    "word": "passport",
+    "meaning": "گذرنامه",
+    "example": "Do not forget your passport."
+   }
+  ]
+ },
+ {
+  "id": "en-business",
+  "name": "انگلیسی — کسب‌وکار",
+  "lang": "en",
+  "level": "B1",
+  "topic": "کسب‌وکار",
+  "access": "standard",
+  "emoji": "💼",
+  "color": "#7c3aed",
+  "desc": "واژه‌های جلسه، مذاکره و گزارش",
+  "tags": [
+   "کار",
+   "رسمی"
+  ],
+  "version": 1,
+  "updated": "2026-10-24",
+  "count": 10,
+  "file": "en-business.json",
+  "preview": [
+   {
+    "word": "negotiate",
+    "meaning": "مذاکره کردن",
+    "example": "We need to negotiate the price."
+   },
+   {
+    "word": "deadline",
+    "meaning": "مهلت نهایی",
+    "example": "The deadline is next Friday."
+   },
+   {
+    "word": "invoice",
+    "meaning": "فاکتور",
+    "example": "Please send me the invoice."
+   },
+   {
+    "word": "revenue",
+    "meaning": "درآمد",
+    "example": "Our revenue grew by ten percent."
+   },
+   {
+    "word": "stakeholder",
+    "meaning": "ذی‌نفع",
+    "example": "We must inform every stakeholder."
+   }
+  ]
+ },
+ {
+  "id": "fr-basic",
+  "name": "فرانسوی — مکالمه پایه",
+  "lang": "fr",
+  "level": "A1",
+  "topic": "مکالمه",
+  "access": "standard",
+  "emoji": "🥐",
+  "color": "#db2777",
+  "desc": "جمله‌ها و واژه‌های اولیه برای شروع",
+  "tags": [
+   "پایه",
+   "مکالمه"
+  ],
+  "version": 1,
+  "updated": "2026-10-24",
+  "count": 10,
+  "file": "fr-basic.json",
+  "preview": [
+   {
+    "word": "bonjour",
+    "meaning": "سلام",
+    "example": "Bonjour, madame."
+   },
+   {
+    "word": "merci",
+    "meaning": "ممنون",
+    "example": "Merci beaucoup !"
+   },
+   {
+    "word": "s’il vous plaît",
+    "meaning": "لطفاً",
+    "example": "Un café, s’il vous plaît."
+   },
+   {
+    "word": "au revoir",
+    "meaning": "خداحافظ",
+    "example": "Au revoir et à demain."
+   },
+   {
+    "word": "oui",
+    "meaning": "بله",
+    "example": "Oui, je comprends."
+   }
+  ]
+ },
+ {
+  "id": "en-ielts",
+  "name": "انگلیسی — آیلتس هسته",
+  "lang": "en",
+  "level": "B2",
+  "topic": "آیلتس",
+  "access": "premium",
+  "emoji": "🎓",
+  "color": "#ea580c",
+  "desc": "واژه‌های آکادمیک پرتکرار برای نوشتن و گفتن",
+  "tags": [
+   "آیلتس",
+   "IELTS",
+   "آکادمیک"
+  ],
+  "version": 1,
+  "updated": "2026-10-24",
+  "count": 10,
+  "file": "en-ielts.json",
+  "preview": [
+   {
+    "word": "mitigate",
+    "meaning": "کاهش دادن",
+    "example": "Governments should mitigate climate risks."
+   },
+   {
+    "word": "substantial",
+    "meaning": "قابل‌توجه",
+    "example": "There was a substantial increase."
+   },
+   {
+    "word": "deteriorate",
+    "meaning": "بدتر شدن",
+    "example": "Air quality continues to deteriorate."
+   },
+   {
+    "word": "phenomenon",
+    "meaning": "پدیده",
+    "example": "This phenomenon is quite rare."
+   },
+   {
+    "word": "hypothesis",
+    "meaning": "فرضیه",
+    "example": "The data support our hypothesis."
+   }
+  ]
+ },
+ {
+  "id": "ar-icdl",
+  "name": "icdl",
+  "lang": "ar",
+  "level": "1",
+  "topic": "مهارت کامپیوتر",
+  "access": "standard",
+  "emoji": "📘",
+  "color": "#19f01c",
+  "desc": "",
+  "tags": [],
+  "version": 1,
+  "updated": "2026-10-24",
+  "count": 80,
+  "file": "ar-icdl.json",
+  "preview": [
+   {
+    "word": "ICT مخفف چیست؟",
+    "meaning": "فناوری اطلاعات و ارتباطات",
+    "example": "Information and Communication Technology"
+   },
+   {
+    "word": "CPU چیست؟",
+    "meaning": "واحد پردازش مرکزی",
+    "example": "مغز کامپیوتر"
+   },
+   {
+    "word": "RAM چیست؟",
+    "meaning": "حافظه موقت فرار",
+    "example": "با قطع برق پاک می‌شود"
+   },
+   {
+    "word": "ROM چیست؟",
+    "meaning": "حافظه فقط خواندنی غیرفرار",
+    "example": "داده‌ها معمولاً حفظ می‌شوند"
+   },
+   {
+    "word": "تفاوت سخت‌افزار و نرم‌افزار چیست؟",
+    "meaning": "سخت‌افزار اجزای فیزیکی و نرم‌افزار برنامه‌ها و دستورالعمل‌هاست",
+    "example": "فیزیکی در برابر برنامه‌ای"
+   }
+  ]
+ }
 ]

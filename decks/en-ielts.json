@@ -1,0 +1,92 @@
+{
+ "schema": 2,
+ "id": "en-ielts",
+ "name": "انگلیسی — آیلتس هسته",
+ "lang": "en",
+ "level": "B2",
+ "topic": "آیلتس",
+ "access": "premium",
+ "emoji": "🎓",
+ "color": "#ea580c",
+ "desc": "واژه‌های آکادمیک پرتکرار برای نوشتن و گفتن",
+ "tags": [
+  "آیلتس",
+  "IELTS",
+  "آکادمیک"
+ ],
+ "version": 1,
+ "updated": "2026-10-24",
+ "count": 10,
+ "words": [
+  {
+   "word": "mitigate",
+   "meaning": "کاهش دادن",
+   "tag": "فعل",
+   "example": "Governments should mitigate climate risks.",
+   "note": ""
+  },
+  {
+   "word": "substantial",
+   "meaning": "قابل‌توجه",
+   "tag": "صفت",
+   "example": "There was a substantial increase.",
+   "note": ""
+  },
+  {
+   "word": "deteriorate",
+   "meaning": "بدتر شدن",
+   "tag": "فعل",
+   "example": "Air quality continues to deteriorate.",
+   "note": ""
+  },
+  {
+   "word": "phenomenon",
+   "meaning": "پدیده",
+   "tag": "اسم",
+   "example": "This phenomenon is quite rare.",
+   "note": "جمع: phenomena"
+  },
+  {
+   "word": "hypothesis",
+   "meaning": "فرضیه",
+   "tag": "اسم",
+   "example": "The data support our hypothesis.",
+   "note": "جمع: hypotheses"
+  },
+  {
+   "word": "controversial",
+   "meaning": "بحث‌برانگیز",
+   "tag": "صفت",
+   "example": "It is a controversial policy.",
+   "note": ""
+  },
+  {
+   "word": "fluctuate",
+   "meaning": "نوسان کردن",
+   "tag": "فعل",
+   "example": "Prices fluctuate throughout the year.",
+   "note": ""
+  },
+  {
+   "word": "comprehensive",
+   "meaning": "جامع",
+   "tag": "صفت",
+   "example": "She wrote a comprehensive report.",
+   "note": ""
+  },
+  {
+   "word": "inevitable",
+   "meaning": "اجتناب‌ناپذیر",
+   "tag": "صفت",
+   "example": "Change is inevitable.",
+   "note": ""
+  },
+  {
+   "word": "sustain",
+   "meaning": "حفظ کردن",
+   "tag": "فعل",
+   "example": "We cannot sustain this growth.",
+   "note": ""
+  }
+ ]
+}

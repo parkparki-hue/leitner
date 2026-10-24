@@ -1,0 +1,105 @@
+{
+ "schema": 2,
+ "id": "en-daily",
+ "name": "انگلیسی — روزمره",
+ "lang": "en",
+ "level": "A2",
+ "topic": "روزمره",
+ "access": "free",
+ "emoji": "📘",
+ "color": "#1a6cf0",
+ "desc": "فعل، صفت و اسم پرکاربرد برای شروع",
+ "tags": [
+  "پایه",
+  "روزمره"
+ ],
+ "version": 1,
+ "updated": "2026-10-24",
+ "count": 12,
+ "words": [
+  {
+   "word": "borrow",
+   "meaning": "قرض گرفتن",
+   "tag": "فعل",
+   "example": "Can I borrow your pen?",
+   "note": "مقابل lend"
+  },
+  {
+   "word": "lend",
+   "meaning": "قرض دادن",
+   "tag": "فعل",
+   "example": "She lent me her car.",
+   "note": "گذشته: lent"
+  },
+  {
+   "word": "improve",
+   "meaning": "بهبود دادن",
+   "tag": "فعل",
+   "example": "I want to improve my English.",
+   "note": ""
+  },
+  {
+   "word": "suggest",
+   "meaning": "پیشنهاد کردن",
+   "tag": "فعل",
+   "example": "I suggest we leave early.",
+   "note": ""
+  },
+  {
+   "word": "avoid",
+   "meaning": "اجتناب کردن",
+   "tag": "فعل",
+   "example": "Try to avoid fast food.",
+   "note": "بعد از آن فعل ing می‌آید"
+  },
+  {
+   "word": "common",
+   "meaning": "رایج",
+   "tag": "صفت",
+   "example": "This name is very common.",
+   "note": ""
+  },
+  {
+   "word": "useful",
+   "meaning": "مفید",
+   "tag": "صفت",
+   "example": "This app is really useful.",
+   "note": ""
+  },
+  {
+   "word": "ancient",
+   "meaning": "باستانی",
+   "tag": "صفت",
+   "example": "We visited an ancient city.",
+   "note": ""
+  },
+  {
+   "word": "reliable",
+   "meaning": "قابل اعتماد",
+   "tag": "صفت",
+   "example": "He is a reliable friend.",
+   "note": ""
+  },
+  {
+   "word": "brief",
+   "meaning": "کوتاه و مختصر",
+   "tag": "صفت",
+   "example": "Please keep your answer brief.",
+   "note": ""
+  },
+  {
+   "word": "schedule",
+   "meaning": "برنامه زمانی",
+   "tag": "اسم",
+   "example": "What is your schedule today?",
+   "note": ""
+  },
+  {
+   "word": "habit",
+   "meaning": "عادت",
+   "tag": "اسم",
+   "example": "Reading daily is a good habit.",
+   "note": ""
+  }
+ ]
+}

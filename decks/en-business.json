@@ -1,0 +1,91 @@
+{
+ "schema": 2,
+ "id": "en-business",
+ "name": "انگلیسی — کسب‌وکار",
+ "lang": "en",
+ "level": "B1",
+ "topic": "کسب‌وکار",
+ "access": "standard",
+ "emoji": "💼",
+ "color": "#7c3aed",
+ "desc": "واژه‌های جلسه، مذاکره و گزارش",
+ "tags": [
+  "کار",
+  "رسمی"
+ ],
+ "version": 1,
+ "updated": "2026-10-24",
+ "count": 10,
+ "words": [
+  {
+   "word": "negotiate",
+   "meaning": "مذاکره کردن",
+   "tag": "فعل",
+   "example": "We need to negotiate the price.",
+   "note": ""
+  },
+  {
+   "word": "deadline",
+   "meaning": "مهلت نهایی",
+   "tag": "اسم",
+   "example": "The deadline is next Friday.",
+   "note": ""
+  },
+  {
+   "word": "invoice",
+   "meaning": "فاکتور",
+   "tag": "اسم",
+   "example": "Please send me the invoice.",
+   "note": ""
+  },
+  {
+   "word": "revenue",
+   "meaning": "درآمد",
+   "tag": "اسم",
+   "example": "Our revenue grew by ten percent.",
+   "note": "غیرقابل شمارش"
+  },
+  {
+   "word": "stakeholder",
+   "meaning": "ذی‌نفع",
+   "tag": "اسم",
+   "example": "We must inform every stakeholder.",
+   "note": ""
+  },
+  {
+   "word": "agenda",
+   "meaning": "دستور جلسه",
+   "tag": "اسم",
+   "example": "What is on the agenda today?",
+   "note": ""
+  },
+  {
+   "word": "outsource",
+   "meaning": "برون‌سپاری کردن",
+   "tag": "فعل",
+   "example": "They outsource customer support.",
+   "note": ""
+  },
+  {
+   "word": "quota",
+   "meaning": "سهمیه",
+   "tag": "اسم",
+   "example": "She met her sales quota.",
+   "note": ""
+  },
+  {
+   "word": "proposal",
+   "meaning": "پیشنهاد رسمی",
+   "tag": "اسم",
+   "example": "I will submit the proposal tomorrow.",
+   "note": ""
+  },
+  {
+   "word": "merge",
+   "meaning": "ادغام شدن",
+   "tag": "فعل",
+   "example": "The two companies will merge.",
+   "note": ""
+  }
+ ]
+}
